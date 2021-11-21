@@ -23,6 +23,6 @@ Route::get('/ads', [AdsController::class, 'index'])->name('ads');
 Route::get('/user/ads/create', [AdsController::class, 'create']);
 Route::post('/ads', [AdsController::class, 'store']);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
