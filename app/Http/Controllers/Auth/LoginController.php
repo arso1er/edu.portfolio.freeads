@@ -1,10 +1,18 @@
 <?php
 
+// https://stackoverflow.com/a/61618084   LOGIN WITH USERNAME OR EMAIL
+
 namespace App\Http\Controllers\Auth;
+
+// use App\Http\Controllers\Controller;
+// use App\Providers\RouteServiceProvider;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -36,5 +44,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function username() // THIS METHOD HAS TO BE NAMED username
+    {
+        $login = request()->input('login');
+
+        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $field = 'email';
+        } else {
+            $field = 'login';
+        }
+
+        request()->merge([$field => $login]);
+
+        return $field;
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            'login' => [trans('auth.failed')],
+        ]);
     }
 }
