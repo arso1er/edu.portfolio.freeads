@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdsController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::get('/ads', [AdsController::class, 'index'])->name('ads');
 Route::get('/user/ads/create', [AdsController::class, 'create']);
 Route::post('/ads', [AdsController::class, 'store']);
 
+
 Auth::routes(['verify' => true]);
+
+Route::get('/dashboard', [HomeController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
