@@ -65,7 +65,7 @@
                 <div class="fs-4 fw-bold">Latest ads</div>
                 <a href="#" class="btn btn-primary btn-sm">View more</a>
             </div>
-            <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                 <div class="col">
                     <a href="#" class="card h-100">
                         <img src="/images/home/test.jpeg" class="card-img-top" alt="...">
