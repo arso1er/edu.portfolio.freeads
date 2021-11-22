@@ -22,6 +22,7 @@ class CreateAdsTable extends Migration
             $table->string('picture', 255);
             $table->integer('price');
             $table->string('location', 255);
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
         });

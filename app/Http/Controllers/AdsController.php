@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ad;
+use Auth;
 
 class AdsController extends Controller
 {
@@ -53,14 +54,16 @@ class AdsController extends Controller
         $request->file('picture')->move(public_path('images/ads'), $newPicName);
         // dd($newPicName);
 
-        // dd('hit');
+        $id = Auth::user()->id;
+
         $ad = Ad::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'location' => $request->input('location'),
             'category_id' => $request->input('category_id'),
-            'picture' => "/images/ads/$newPicName"
+            'picture' => "/images/ads/$newPicName",
+            'user_id' => $id
         ]);
     }
 

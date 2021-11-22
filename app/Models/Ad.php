@@ -15,6 +15,7 @@ class Ad extends Model
         'price',
         'location',
         'category_id',
-        'picture'
+        'picture',
+        'user_id'
     ];
 }

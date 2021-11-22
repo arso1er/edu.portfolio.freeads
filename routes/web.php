@@ -21,11 +21,13 @@ Route::get('/', function () {
 
 // Route::resource('/ads', AdsController::class);
 Route::get('/ads', [AdsController::class, 'index'])->name('ads');
-Route::get('/user/ads/create', [AdsController::class, 'create']);
-Route::post('/ads', [AdsController::class, 'store']);
+
 
 
 Auth::routes(['verify' => true]);
+
+Route::get('/user/ads/create', [AdsController::class, 'create']);
+Route::post('/ads', [AdsController::class, 'store']);
 
 Route::get('/dashboard', [HomeController::class, 'index']);
 
