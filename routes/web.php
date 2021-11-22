@@ -19,7 +19,7 @@ use App\Http\Controllers\PagesController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [PagesController::class, 'index']);
+Route::get('/', [PagesController::class, 'index'])->name('root');
 
 // Route::resource('/ads', AdsController::class);
 Route::get('/ads', [AdsController::class, 'index'])->name('ads');
@@ -30,7 +30,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/user/ads/create', [AdsController::class, 'create']);
 Route::post('/ads', [AdsController::class, 'store']);
+Route::get('/user/ads/{id}/edit', [AdsController::class, 'edit']);
+Route::put('/ads/{id}', [AdsController::class, 'update']);
 
 Route::get('/dashboard', [HomeController::class, 'index']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

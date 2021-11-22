@@ -98,10 +98,18 @@ class AdsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // dd($id);
+        // $ad = Ad::find($id)->first();  // DON'T USE THIS. FOR WHATEVER REASON IT RETURNS 1ST AD ALWAYS.
+        $ad = Ad::where('id', $id)->first();
+        if(Auth::user()->id !== $ad->user_id && Auth::user()->role !== 'admin') {
+            return redirect()->route('root')
+                             ->with('error','You are not allowed to do that!');
+        }
+
+        return view('user/ads/edit')->with('ad', $ad);
     }
 
-    /**
+     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -110,7 +118,42 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ad = Ad::where('id', $id)->first();
+        if(Auth::user()->id !== $ad->user_id && Auth::user()->role !== 'admin') {
+            return redirect()->route('root')
+                             ->with('error','You are not allowed to do that!');
+        }
+
+        $request->validate([
+            'title' => 'required|unique:ads,title,' .$id,  // https://laracasts.com/discuss/channels/requests/problem-with-unique-field-validation-on-update
+            'description' => 'required',
+            'price' => 'required|integer|min:0',
+            'location' => 'required'
+        ]);
+
+        $data = [
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'location' => $request->input('location'),
+            'category_id' => $request->input('category_id')
+            // 'picture' => "/images/ads/$newPicName"
+            // 'user_id' => $id // Comment this out to leave user_id untouched
+        ];
+
+        if($request->file('picture')) {
+            $newPicName = 'Ad-' . time() . "." . $request->file('picture')->extension();
+            $request->file('picture')->move(public_path('images/ads'), $newPicName);
+            $pictureArray = ['picture' => "/images/ads/$newPicName"];
+        }
+        
+        $newAd = Ad::where('id', $id)
+                ->update(array_merge(
+                    $data,
+                    $pictureArray ?? []
+                ));
+
+        return back()->with('success','The ad have been updated successfully!');
     }
 
     /**
