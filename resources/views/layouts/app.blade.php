@@ -24,6 +24,7 @@
 </head>
 <body>
     <div id="app">
+        @include('layouts.flash-message')
 
         <div class="baz-content-wrapper">
             <nav class="navbar navbar-light bg-light sticky-top">
@@ -136,5 +137,6 @@
 
     </div>
 
+    <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
 </html>

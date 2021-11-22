@@ -12,7 +12,7 @@
                         @csrf
                         <div class="mb-4">
                             <label class="form-label" for="title">Title</label>
-                            <input name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" required>
+                            <input name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title') }}" required>
                             @error('title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -21,7 +21,7 @@
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="description">Description</label>
-                            <textarea required class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10"></textarea>
+                            <textarea required class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="price">Price</label>
-                            <input required name="price" type="number" min="0" class="form-control @error('price') is-invalid @enderror" id="price">
+                            <input required name="price" type="number" min="0" class="form-control @error('price') is-invalid @enderror" id="price" value="{{ old('price') }}">
                             @error('price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="location">Location</label>
-                            <input required name="location" type="text" class="form-control @error('location') is-invalid @enderror" id="location">
+                            <input required name="location" type="text" class="form-control @error('location') is-invalid @enderror" id="location" value="{{ old('location') }}">
                             @error('location')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="picture" class="form-label">Picture</label>
-                            <input required class="form-control @error('picture') is-invalid @enderror" type="file" id="picture" name="picture">
+                            <input  class="form-control @error('picture') is-invalid @enderror" type="file" id="picture" name="picture">
                             @error('picture')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -57,9 +57,9 @@
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="category_id">Category</label>
-                            <select class="form-select" id="category_id" name="category_id">
+                            <select class="form-select" id="category_id" name="category_id" value="{{ old('category_id') }}">
                                 <option selected disabled value="">Choose...</option>
-                                <option value="">First</option>
+                                <option value="0">First</option>
                             </select>
                         </div>
                         

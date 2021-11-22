@@ -3,6 +3,7 @@
     flex-direction: column;
     min-height: 100vh;
 }
+
 footer {
     margin-top: auto;
 }
@@ -77,6 +78,15 @@ img {
     -webkit-box-orient: vertical;
 }
 
+/* NOTIF */
+.baz-notif {
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    z-index: 10000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 @media screen and (max-width: 600px) {
 
     .container-fluid.home::before,
@@ -105,4 +115,12 @@ img {
         border-radius: 1rem;
         display: inline-block;
     }
+
+    /* NOTIF */
+    .baz-notif {
+        right: 0;
+        top: 0;
+        max-width: 100%;
+    }
 }
+

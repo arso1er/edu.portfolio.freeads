@@ -75,6 +75,8 @@ class AdsController extends Controller
             'picture' => "/images/ads/$newPicName",
             'user_id' => $id
         ]);
+
+        return back()->with('success','Your ad have been created successfully!');
     }
 
     /**
