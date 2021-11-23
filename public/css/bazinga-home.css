@@ -87,6 +87,22 @@ img {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/* ANIMATION */
+.baz-card-anim {
+    overflow: hidden;
+}
+
+.baz-card-anim>img {
+    /* object-fit: cover;
+    width: 100%;
+    height: 100%; */
+    transition: transform 0.3s ease-in-out;
+}
+
+.baz-card-anim-container:hover img {
+    transform: scale(1.45);
+}
+
 @media screen and (max-width: 600px) {
 
     .container-fluid.home::before,
@@ -123,4 +139,3 @@ img {
         max-width: 100%;
     }
 }
-

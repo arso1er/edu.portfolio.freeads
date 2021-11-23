@@ -73,7 +73,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                                <li><a class="dropdown-item" href="#">View my ads</a></li>
+                                <li><a class="dropdown-item" href="/user/my-ads">View my ads</a></li>
                                 <li><a class="dropdown-item" href="/user/ads/create">Create new ad</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"

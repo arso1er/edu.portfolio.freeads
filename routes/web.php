@@ -32,6 +32,8 @@ Route::get('/user/ads/create', [AdsController::class, 'create']);
 Route::post('/ads', [AdsController::class, 'store']);
 Route::get('/user/ads/{id}/edit', [AdsController::class, 'edit']);
 Route::put('/ads/{id}', [AdsController::class, 'update']);
+Route::delete('/ads/{id}', [AdsController::class, 'destroy']);
+Route::get('/user/my-ads', [AdsController::class, 'myAds']);
 
 Route::get('/dashboard', [HomeController::class, 'index']);
 

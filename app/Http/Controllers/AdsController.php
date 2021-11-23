@@ -76,7 +76,7 @@ class AdsController extends Controller
             'user_id' => $id
         ]);
 
-        return back()->with('success','Your ad have been created successfully!');
+        return back()->with('success','Your ad has been created successfully!');
     }
 
     /**
@@ -153,7 +153,7 @@ class AdsController extends Controller
                     $pictureArray ?? []
                 ));
 
-        return back()->with('success','The ad have been updated successfully!');
+        return back()->with('success','The ad has been updated successfully!');
     }
 
     /**
@@ -164,6 +164,24 @@ class AdsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ad = Ad::where('id', $id)->first();
+        if(Auth::user()->id !== $ad->user_id && Auth::user()->role !== 'admin') {
+            return redirect()->route('root')
+                             ->with('error','You are not allowed to do that!');
+        }
+
+        $deletedRows = Ad::where('id', $id)->delete();
+        return back()->with('success','The ad has been deleted successfully!');
+    }
+
+    /**
+     * Show logged in user's ads
+     */
+    public function myAds() {
+        $ads = Ad::where('user_id', Auth::user()->id)->get();
+
+        return view('user/ads/my-ads', [
+            'ads' => $ads
+        ]);
     }
 }
