@@ -60,62 +60,30 @@
             </div>
         </div>
 
-        <div class="container mt-120 mb-120">
-            <div class="align-items-center d-flex justify-content-between mb-4">
-                <div class="fs-4 fw-bold">Latest ads</div>
-                <a href="#" class="btn btn-primary btn-sm">View more</a>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-                <div class="col">
-                    <a href="#" class="card h-100">
-                        <img src="/images/home/test.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text baz-ellipsis">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">$100</small>
-                        </div>
-                    </a>
+        @if (count($ads) > 0)
+            <div class="container mt-120 mb-120">
+                <div class="align-items-center d-flex justify-content-between mb-4">
+                    <div class="fs-4 fw-bold">Latest ads</div>
+                    <a href="#" class="btn btn-primary btn-sm">View more</a>
                 </div>
-                <div class="col">
-                    <a href="#" class="card h-100">
-                        <img src="/images/home/test.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text baz-ellipsis">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    @foreach ($ads as $ad)
+                        <div class="col">
+                            <a href="/ads/{{ $ad->id }}" class="card h-100 baz-card-anim-container">
+                                <div class="baz-card-anim">
+                                    <img src="{{ $ad->picture }}" class="card-img-top" alt="{{ $ad->title }}">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title text-truncate">{{ $ad->title }}</h5>
+                                    <div class="small text-muted fw-bold">${{ $ad->price }}</div>
+                                    <p class="card-text baz-ellipsis">{{ $ad->description }}</p>
+                                </div>
+                            </a>
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">$100</small>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="card h-100">
-                        <img src="/images/home/test.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text baz-ellipsis">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">$100</small>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="card h-100">
-                        <img src="/images/home/test.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text baz-ellipsis">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">$100</small>
-                        </div>
-                    </a>
+                    @endforeach
                 </div>
             </div>
-        </div>
+        @endif
     </main>
 
 @endsection

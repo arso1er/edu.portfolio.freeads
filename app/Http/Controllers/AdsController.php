@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ad;
 use Auth;
+use DB;
 
 class AdsController extends Controller
 {
@@ -23,13 +24,78 @@ class AdsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // select * from ads
-        $ads = Ad::all();
-        // dd($ads);
+        // Get params
+        $title = $request->query('title', '');
+        $min_price = $request->query('min_price', '0');
+        $max_price = $request->query('max_price', '10000');
+        $sort = $request->query('sort', 'title asc');
+        $category = $request->query('category', '-1');
+        
+        $cats_str = "";
+
+        // Count query
+        $countStdClass = DB::select(DB::raw("
+            SELECT COUNT(*) as total FROM ads
+            WHERE title LIKE \"%$title%\"
+            $cats_str
+            AND price BETWEEN $min_price AND $max_price
+            ORDER BY $sort
+        "));
+        $count = (array) $countStdClass[0];
+
+        // $startAt; $perPage; $title; $category; $sort; $min_price; $max_price;
+        $perPage = $request->query('per_page', '7');
+        $page = $request->query('page', 1);
+        $startAt = $perPage * ($page - 1);
+        $totalPages = ceil($count['total'] / $perPage);
+        
+        $ads = DB::select(DB::raw("
+            SELECT * FROM ads
+            WHERE title LIKE \"%$title%\"
+            $cats_str
+            AND price BETWEEN $min_price AND $max_price
+            ORDER BY $sort
+            LIMIT $startAt, $perPage
+        "));
+
+        // Generate pagination
+        $links = "";
+        $prevLink = $page - 1;
+        function getLink($num, $title, $category, $sort, $min_price, $max_price, $perPage) {
+            return "/ads?title=$title&category=$category&sort=$sort&min_price=$min_price&max_price=$max_price&page=$num&per_page=$perPage";
+        }
+        if($page !== 1) {
+            // <li class='page-item'><a href='' class='page-link'>Previous</a></li>
+            $links .= "<li class='page-item'><a href='".getLink($prevLink, $title, $category, $sort, $min_price, $max_price, $perPage)."' class='page-link'>Previous</a></li>";
+        }
+        for ($i = 1; $i <= $totalPages; $i++) {
+            if($i === (int)$page - 1) {
+                $links .= "<li class='page-item'><a href='".getLink($i, $title, $category, $sort, $min_price, $max_price, $perPage)."' class='page-link'>$i</a></li>";
+            }
+            if($i === (int)$page) {
+                $links .= "<li class='page-item active' aria-current='page'><span class='page-link'>$i</span></li>";
+            }
+            if($i === (int)$page + 1) {
+                $links .= "<li class='page-item'><a href='".getLink($i, $title, $category, $sort, $min_price, $max_price, $perPage)."' class='page-link'>$i</a></li>";
+            }
+        }
+        $nextLink = $page + 1;
+        if($page + 1 <= $totalPages) {
+            $links .= "<li class='page-item'><a href='".getLink($nextLink, $title, $category, $sort, $min_price, $max_price, $perPage)."' class='page-link'>Next</a></li>";
+        }
+        
         return view('ads/index', [
-            'ads' => $ads
+            'ads' => $ads,
+            'pageLinks' => $links,
+            'title' => $title,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+            'sort' => $sort,
+            'category' => $category,
+            'total' => $count['total'],
+            'perPage' => $perPage
         ]);
     }
 

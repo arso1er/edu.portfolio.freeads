@@ -19,8 +19,8 @@ class AdFactory extends Factory
             'description' => $this->faker->text(930),
             'picture' => $this->faker->imageUrl(640, 480, 'animals', true),
             'price' => $this->faker->numberBetween(10, 10000),
-            'location' => Str::random(10)
-            // 'created_at' => now()
+            'location' => Str::random(10),
+            'user_id' => rand(1, 3)
         ];
     }
 }
