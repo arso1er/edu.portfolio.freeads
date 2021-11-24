@@ -39,6 +39,7 @@ Route::get('/user/my-ads', [AdsController::class, 'myAds']);
 Route::get('/profile', [UsersController::class, 'profile']);
 Route::get('/user/{id}/edit', [UsersController::class, 'edit']);
 Route::put('/user/{id}', [UsersController::class, 'update']);
+Route::delete('/user/{id}', [UsersController::class, 'destroy']);
 
 Route::get('/dashboard', [HomeController::class, 'index']);
 

@@ -85,4 +85,20 @@ class UsersController extends Controller
 
         return back()->with('success','User successfully updated!');
     }
+
+    public function destroy($id)
+    {
+        $currentUser = Auth::user();
+        if((int)$currentUser->id !== (int)$id && $currentUser->role !== 'admin') {
+            return redirect()->route('root')
+                             ->with('error','You are not allowed to do that!');
+        }
+
+        $deletedRows = User::where('id', $id)->delete();
+        if($currentUser->role === 'admin' && (int)$currentUser->id !== (int)$id) {
+            return back()->with('success','The user has been deleted successfully!');
+        }
+        return redirect()->route('root')
+                  ->with('success','Your account has been successfully deleted!');
+    }
 }
