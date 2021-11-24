@@ -70,7 +70,7 @@
                                     {{ Auth::user()->nickname }}
                                 </button>
                                 <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="/profile">My profile</a></li>
                                 <li><a class="dropdown-item" href="/user/my-ads">View my ads</a></li>
                                 <li><a class="dropdown-item" href="/user/ads/create">Create new ad</a></li>
