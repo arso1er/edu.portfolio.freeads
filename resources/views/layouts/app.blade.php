@@ -38,13 +38,10 @@
                             <a class="baz-nav-link active" aria-current="page" href="/">Home</a>
                         </div>
                         <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link" href="#">Features</a>
+                            <a class="baz-nav-link" href="/ads">Browse ads</a>
                         </div>
                         <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link" href="#">Pricing</a>
-                        </div>
-                        <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link">Not Disabled</a>
+                            <a class="baz-nav-link" href="#">My History</a>
                         </div>
                     </div>
                     <div class="baz-nav d-sm-flex align-items-center d-none">
@@ -74,6 +71,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="/profile">My profile</a></li>
                                 <li><a class="dropdown-item" href="/user/my-ads">View my ads</a></li>
                                 <li><a class="dropdown-item" href="/user/ads/create">Create new ad</a></li>
                                 <li><hr class="dropdown-divider"></li>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Route::get('/user/ads/{id}/edit', [AdsController::class, 'edit']);
 Route::put('/ads/{id}', [AdsController::class, 'update']);
 Route::delete('/ads/{id}', [AdsController::class, 'destroy']);
 Route::get('/user/my-ads', [AdsController::class, 'myAds']);
+
+Route::get('/profile', [UsersController::class, 'profile']);
 
 Route::get('/dashboard', [HomeController::class, 'index']);
 
