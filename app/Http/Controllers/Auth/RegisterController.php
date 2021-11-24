@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -54,7 +55,8 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'login' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'string', 'max:255']
+            'phone' => ['required', 'string', 'max:255'],
+            'picture' => ['nullable', 'image']
         ]);
     }
 
@@ -66,12 +68,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $userData = [
             'nickname' => $data['nickname'],
             'email' => $data['email'],
             'login' => $data['login'],
             'phone' => $data['phone'],
-            'password' => Hash::make($data['password']),
-        ]);
+            'password' => Hash::make($data['password'])
+        ];
+        if(array_key_exists("picture", $data)) {
+            $newPicName = 'user-' . time() . "." . $data["picture"]->extension();
+            $data["picture"]->move(public_path('images/users'), $newPicName);
+            $pictureArray = ['picture' => "/images/users/$newPicName"];
+        }
+        return User::create(array_merge(
+            $userData,
+            $pictureArray ?? ['picture' => "/images/user-default.png"]
+        ));
     }
 }
