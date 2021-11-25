@@ -153,7 +153,33 @@ class AdsController extends Controller
      */
     public function show($id)
     {
-        //
+        $ad = Ad::where('id', $id)->first();
+
+        // share urls
+        $productName = $ad->title;
+        $rootUrl = "https://4d31-156-0-214-62.ngrok.io";
+        $bareUrl = "$rootUrl/ads/$id";
+        $urlToShare = rawurlencode($bareUrl);
+        $urlText = rawurlencode("Check out $productName");
+        $hashtags = "Bazinga,ads,onlineads,freeads";
+        $emailSubject = rawurlencode(
+            "I ♥ this ad on Bazinga!"
+        );
+        $emailBody = rawurlencode(
+            "$productName. Here's the link $bareUrl."
+        );
+        $shareUrls = [
+            $bareUrl,
+            "https://www.facebook.com/sharer.php?u=$urlToShare",
+            "https://twitter.com/intent/tweet?url=$urlToShare&text=$urlText&hashtags=$hashtags",
+            "mailto:?subject=$emailSubject&amp;body=$emailBody"
+        ];
+        return view('ads/show', [
+            'ad' => $ad,
+            'shareUrls' => $shareUrls,
+            'rootUrl' => $rootUrl,
+            'bareUrl' => $bareUrl
+        ]);
     }
 
     /**

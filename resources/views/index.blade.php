@@ -10,9 +10,9 @@
                     <div class="text-danger text-uppercase fw-bold">Welcome to Bazinga Ads.</div>
                     <div class="fs-2 lh-sm mb-3 mt-3">We are the number one growing free ads platform.</div>
                     <div class="fs-4 mb-3">We offer unlimited free ads to anyone and everyone. You won't find better anywhere else. Over ten thousands people put their trust in Bazinga Ads since its creation, and we'll be happy to have you among us. All you have to do is create an account and join the fun!</div>
-                    <form action="/search" class="col-md-8 mt-auto">
+                    <form action="/ads" class="col-md-8 mt-auto">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light" placeholder="Search ads" aria-label="Search ads" aria-describedby="home-search">
+                            <input name="title" type="text" class="form-control bg-light" placeholder="Search ads" aria-label="Search ads" aria-describedby="home-search">
                             <button class="btn btn-outline-secondary" type="submit" id="home-search">Go</button>
                         </div>
                     </form>
@@ -64,7 +64,7 @@
             <div class="container mt-120 mb-120">
                 <div class="align-items-center d-flex justify-content-between mb-4">
                     <div class="fs-4 fw-bold">Latest ads</div>
-                    <a href="#" class="btn btn-primary btn-sm">View more</a>
+                    <a href="/ads" class="btn btn-primary btn-sm">View more</a>
                 </div>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                     @foreach ($ads as $ad)

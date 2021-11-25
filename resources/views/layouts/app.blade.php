@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="BazingaAds, the #1 free ads platform in the world.">
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+
+    @yield('meta')
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

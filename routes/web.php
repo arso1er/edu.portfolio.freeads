@@ -29,6 +29,7 @@ Route::get('/ads', [AdsController::class, 'index'])->name('ads');
 
 Auth::routes(['verify' => true]);
 
+Route::get('/ads/{id}', [AdsController::class, 'show']);
 Route::get('/user/ads/create', [AdsController::class, 'create']);
 Route::post('/ads', [AdsController::class, 'store']);
 Route::get('/user/ads/{id}/edit', [AdsController::class, 'edit']);
