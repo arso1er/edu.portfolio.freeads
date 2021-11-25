@@ -43,13 +43,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
-    // /* Go back */
-    // const backBtn = document.querySelector(".go-back");
-    // if (backBtn) {
-    //   backBtn.addEventListener("click", () => {
-    //     history.back();
-    //   });
-    // }
+    /* Go back */
+    const backBtn = document.querySelector(".go-back");
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        history.back();
+      });
+    }
 
     /* NOTIF */
     const notif = document.querySelector(".baz-notif");

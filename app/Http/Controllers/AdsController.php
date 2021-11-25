@@ -186,7 +186,15 @@ class AdsController extends Controller
      */
     public function show($id)
     {
-        $ad = Ad::where('id', $id)->first();
+        $ad = Ad::join('cats', 'ads.category_id', '=', 'cats.id')
+                    ->select('ads.*', 'cats.name as catName')
+                    ->where('ads.id', $id)
+                    ->first();
+        // dd($ad);
+
+        if(!isset($ad)) {
+            abort(404);
+        }
 
         // share urls
         $productName = $ad->title;

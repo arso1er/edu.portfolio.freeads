@@ -43,9 +43,9 @@
             </div>
 
             <div class="product-description">
-                {{-- <div class="product-category">
-                    <a href="" class="link-unstyled">
-                        cat name
+                <div class="product-category">
+                    <a href="/ads?title=&category={{ $ad->category_id }}&sort=title+asc&per_page=7&min_price=0&max_price=10000" class="link-unstyled">
+                        {{ $ad->catName }}
                     </a>
                     <div class="go-back">
                         <svg>
@@ -53,7 +53,7 @@
                         </svg>
                         Go Back
                     </div>
-                </div> --}}
+                </div>
                 <div class="product-title"> {{ $ad->title }} </div>
                 <div class="product-price">${{ $ad->price }} </div>
                 <div class="product-desc">
