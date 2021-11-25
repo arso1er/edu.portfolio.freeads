@@ -59,10 +59,16 @@
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="category_id">Category</label>
-                            <select class="form-select" id="category_id" name="category_id" value="{{ $ad->category_id }}">
-                                <option selected disabled value="">Choose...</option>
-                                <option value="0">First</option>
+                            <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" value="{{ $ad->category_id }}">
+                                @foreach ($cats as $cat)
+                                    <option value="{{ $cat->id }}" {{ $ad->category_id == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                @endforeach
                             </select>
+                            @error('category_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Submit</button>

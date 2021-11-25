@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Ad;
+use App\Models\Cat;
 use Auth;
 use DB;
 
@@ -19,6 +21,22 @@ class AdsController extends Controller
         $this->middleware(['auth', 'verified'], ['except' => ['index', 'show']]);
     }
 
+    // https://stackoverflow.com/a/29378062
+    private function get_subcategories($parent_id, &$cat_ids) {
+        // global $cat_ids;
+        $categories = DB::select(DB::raw("
+            SELECT id FROM cats WHERE parent_id = $parent_id
+        "));
+        // $sql = "SELECT id FROM cats WHERE parent_id = :parent_id";
+        // $sth ->prepare($sql);
+        // $sth->execute(array(':parent_id' => $parent_id));
+        // $categories = $sth->fetchAll(PDO::FETCH_ASSOC);
+    
+        foreach($categories as $category) {
+            $cat_ids[] = $category->id;
+            $this->get_subcategories($category->id, $cat_ids);
+        }   
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,13 +45,18 @@ class AdsController extends Controller
     public function index(Request $request)
     {
         // Get params
-        $title = $request->query('title', '');
-        $min_price = $request->query('min_price', '0');
-        $max_price = $request->query('max_price', '10000');
-        $sort = $request->query('sort', 'title asc');
-        $category = $request->query('category', '-1');
-        
-        $cats_str = "";
+        $title = $request->query('title', '') ?? '';
+        $min_price = $request->query('min_price', '0') ?? '0';
+        $max_price = $request->query('max_price', '10000') ?? '10000';
+        $sort = $request->query('sort', 'title asc') ?? 'title asc';
+        $category = $request->query('category', '-1') ?? -1;
+
+        $cat_id = $category;
+        $cat_ids = array($cat_id);
+        $this->get_subcategories($cat_id, $cat_ids);
+
+        $cat_ids_sql = implode(',', $cat_ids);
+        $cats_str = (int)$cat_ids[0] < 1 ? "" : "AND category_id IN ($cat_ids_sql)";
 
         // Count query
         $countStdClass = DB::select(DB::raw("
@@ -85,6 +108,8 @@ class AdsController extends Controller
         if($page + 1 <= $totalPages) {
             $links .= "<li class='page-item'><a href='".getLink($nextLink, $title, $category, $sort, $min_price, $max_price, $perPage)."' class='page-link'>Next</a></li>";
         }
+
+        $allCats = Cat::get();
         
         return view('ads/index', [
             'ads' => $ads,
@@ -95,7 +120,8 @@ class AdsController extends Controller
             'sort' => $sort,
             'category' => $category,
             'total' => $count['total'],
-            'perPage' => $perPage
+            'perPage' => $perPage,
+            'allCats' => $allCats
         ]);
     }
 
@@ -106,7 +132,10 @@ class AdsController extends Controller
      */
     public function create()
     {
-        return view('user/ads/create');
+        $cats = Cat::get();
+        return view('user/ads/create', [
+            'cats' => $cats
+        ]);
     }
 
     /**
@@ -123,6 +152,10 @@ class AdsController extends Controller
             'price' => 'required|integer|min:0',
             'location' => 'required',
             'picture' => 'required|mimes:png,jpg,jpeg|max:5048',
+            'category_id' => [
+                'required',
+                Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133
+            ],
         ]);
 
         // $request->file('picture')->
@@ -198,7 +231,12 @@ class AdsController extends Controller
                              ->with('error','You are not allowed to do that!');
         }
 
-        return view('user/ads/edit')->with('ad', $ad);
+        $cats = Cat::get();
+        return view('user/ads/edit', [
+            'ad' => $ad,
+            'cats' => $cats
+        ]);
+        // return view('user/ads/edit')->with('ad', $ad);
     }
 
      /**
@@ -220,7 +258,11 @@ class AdsController extends Controller
             'title' => 'required|unique:ads,title,' .$id,  // https://laracasts.com/discuss/channels/requests/problem-with-unique-field-validation-on-update
             'description' => 'required',
             'price' => 'required|integer|min:0',
-            'location' => 'required'
+            'location' => 'required',
+            'category_id' => [
+                'required',
+                Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133
+            ],
         ]);
 
         $data = [

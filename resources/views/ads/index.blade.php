@@ -3,9 +3,10 @@
 @section('content')
     <div class="container my-5">
         @if (count($ads) < 1)
-            <div class="fs-4">No matching ads found in our records.</div>
+            <div class="fs-4 fw-bold mb-4">No matching ads found in our records.</div>
         @else
             <div class="fs-4 fw-bold mb-4">Showing {{ count($ads) }} out of {{ $total }} ads.</div>
+        @endif
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                 <div class="col">
                     <form action="/ads" id="ads-search-form">
@@ -17,9 +18,9 @@
                         <div class="ge-select">
                             <select name="category">
                                 <option value="">All Categories</option>
-                                <option value="0">First</option>
-                                <option value="1">Second</option>
-                                <option value="2">Third</option>
+                                @foreach ($allCats as $cat)
+                                    <option value="{{ $cat->id }}" {{ $category == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                @endforeach
                             </select>
                             <img src="/images/arrow-down.svg" alt="Down Arrow">
                         </div>
@@ -96,6 +97,6 @@
                    {!! $pageLinks !!}
                 </ul>
             </nav>
-        @endif
+        
     </div>
 @endsection
