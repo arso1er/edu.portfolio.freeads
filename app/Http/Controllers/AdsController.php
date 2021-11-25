@@ -193,7 +193,7 @@ class AdsController extends Controller
         // dd($ad);
 
         if(!isset($ad)) {
-            abort(404);
+            return abort(404);
         }
 
         // share urls
