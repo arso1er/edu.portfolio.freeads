@@ -1,4 +1,5 @@
 {{-- https://codepen.io/kdbkapsere/pen/oNXLbqQ --}}
+{{-- https://freefrontend.com/html-css-404-page-templates/ --}}
 @extends('layouts.app')
 
 @section('content')
