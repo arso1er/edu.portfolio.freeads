@@ -101,6 +101,20 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 row">
+                            <label for="admin" class="col-md-4 col-form-label text-end">{{ __('Admin password') }}</label>
+
+                            <div class="col-md-6">
+                                <input placeholder="Leave empty if not admin" id="admin" type="password" class="form-control @error('admin') is-invalid @enderror" name="admin">
+
+                                @error('admin')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="mb-3 row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

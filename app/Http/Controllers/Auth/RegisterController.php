@@ -57,7 +57,8 @@ class RegisterController extends Controller
             'login' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', new PhoneNumber],
-            'picture' => ['nullable', 'image']
+            'picture' => ['nullable', 'image'],
+            'admin' => 'nullable|in:'.env('ADMIN_PASS'),
         ]);
     }
 
@@ -74,13 +75,15 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'login' => $data['login'],
             'phone' => $data['phone'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'role' => $data['admin'] === env('ADMIN_PASS') ? 'admin' : 'user'
         ];
         if(array_key_exists("picture", $data)) {
             $newPicName = 'user-' . time() . "." . $data["picture"]->extension();
             $data["picture"]->move(public_path('images/users'), $newPicName);
             $pictureArray = ['picture' => "/images/users/$newPicName"];
         }
+        // dd($userData);
         return User::create(array_merge(
             $userData,
             $pictureArray ?? ['picture' => "/images/user-default.png"]
