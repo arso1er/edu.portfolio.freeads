@@ -20,7 +20,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a href="/user/ads/create" class="card h-100">
+                            <a href="/admin/ads" class="card h-100">
                                 <div class="baz-card-anim">
                                     <img src="/images/manage-ads.png" class="card-img-top" alt="Ads">
                                 </div>
@@ -30,7 +30,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a href="/profile" class="card h-100">
+                            <a href="/user/ads/create" class="card h-100">
                                 <div class="baz-card-anim">
                                     <img src="/images/create-new-ad.png" class="card-img-top" alt="Create new ad">
                                 </div>
@@ -40,7 +40,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a href="/categories/new" class="card h-100">
+                            <a href="/admin/categories/new" class="card h-100">
                                 <div class="baz-card-anim">
                                     <img src="/images/new-category.png" class="card-img-top" alt="Create new category">
                                 </div>

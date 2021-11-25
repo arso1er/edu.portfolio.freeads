@@ -42,6 +42,12 @@ Route::get('/user/{id}/edit', [UsersController::class, 'edit']);
 Route::put('/user/{id}', [UsersController::class, 'update']);
 Route::delete('/user/{id}', [UsersController::class, 'destroy']);
 
+// Admin dash routes
+Route::get('/admin/users', [PagesController::class, 'users']);
+Route::get('/admin/ads', [PagesController::class, 'ads']);
+Route::get('/admin/categories/new', [PagesController::class, 'createCat']);
+Route::post('/categories', [PagesController::class, 'storeCat']);
+
 Route::get('/dashboard', [HomeController::class, 'index']);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

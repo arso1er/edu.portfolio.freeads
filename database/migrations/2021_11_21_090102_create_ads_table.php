@@ -22,7 +22,8 @@ class CreateAdsTable extends Migration
             $table->string('picture', 255);
             $table->integer('price');
             $table->string('location', 255);
-            $table->foreignId('user_id')->constrained();
+            // $table->foreignId('user_id')->constrained(); // the constrained will prevent user deletion if he has ads
+            $table->foreignId('user_id');
 
             $table->timestamps();
         });
