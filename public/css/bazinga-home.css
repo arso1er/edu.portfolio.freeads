@@ -16,6 +16,13 @@ img {
     outline: none;
 }
 
+.baz-profile-img {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
 .container-fluid.home::before {
     content: '';
     background-image: url(/images/home/baner-dec-right.png);

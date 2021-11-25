@@ -38,18 +38,18 @@
                     </a>
                     <div class="baz-nav d-sm-flex align-items-center d-none">
                         <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link active" aria-current="page" href="/">Home</a>
+                            <a class="baz-nav-link" aria-current="page" href="/">Home</a>
                         </div>
                         <div class="baz-nav-item p-4">
                             <a class="baz-nav-link" href="/ads">Browse ads</a>
                         </div>
                         <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link" href="#">My History</a>
+                            <a class="baz-nav-link" href="history">My History</a>
                         </div>
                     </div>
                     <div class="baz-nav d-sm-flex align-items-center d-none">
                         {{-- <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="baz-nav-link" aria-current="page" href="#">Home</a>
                         </div>
                         <div class="baz-nav-item p-4">
                             <a class="baz-nav-link" href="#">Features</a>
@@ -69,7 +69,8 @@
                             @endif
                         @else
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button type="button" class="d-flex align-items-center btn btn-primary dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="baz-profile-img" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->nickname }}">
                                     {{ Auth::user()->nickname }}
                                 </button>
                                 <ul class="dropdown-menu">
@@ -81,7 +82,7 @@
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                        {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -96,35 +97,58 @@
                     </button>
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            <h5 class="offcanvas-title text-primary fw-bold text-uppercase" id="offcanvasNavbarLabel">
+                                Bazinga<span class="text-danger">Ads</span>
+                            </h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                <hr class="dropdown-divider">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">Home</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/ads">Browse ads</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/history">My History</a>
+                                </li>
+                                @guest
+                                    @if (Route::has('register'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if (Route::has('login'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        </li>
+                                    @endif
+                                @else
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ Auth::user()->nickname }}
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                                            <li><a class="dropdown-item" href="/profile">My profile</a></li>
+                                            <li><a class="dropdown-item" href="/user/my-ads">View my ads</a></li>
+                                            <li><a class="dropdown-item" href="/user/ads/create">Create new ad</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                                            {{ __('Logout') }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endguest
                             </ul>
-                            </li>
-                        </ul>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
                         </div>
                     </div>
                 </div>
