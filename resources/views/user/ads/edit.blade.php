@@ -50,8 +50,13 @@
                         </div>
                         <div class="mb-4">
                             <label for="picture" class="form-label">Picture</label>
-                            <input class="form-control @error('picture') is-invalid @enderror" type="file" multiple accept="image/*" id="picture" name="picture[]">
+                            <input class="form-control @error('picture') is-invalid @enderror @error('picture.*') is-invalid @enderror" type="file" multiple accept="image/*" id="picture" name="picture[]">
                             @error('picture')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            @error('picture.*')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

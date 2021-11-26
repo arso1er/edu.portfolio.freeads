@@ -79,7 +79,8 @@
                 <div class="card-body">
                     <h5 class="card-title fw-bold"> {{ $ad->title }} </h5>
                     <div class="text-muted fw-bold"> ${{ $ad->price }} </div>
-                    <div class="card-text"> <span class="fw-bold">Location:</span> {{ $ad->location }} </div>
+                    <div class="card-text mb-3"> <span class="fw-bold">Location:</span> {{ $ad->location }} </div>
+                    <div class="fw-bold">Description</div>
                     <p class="card-text"> {{ $ad->description }} </p>
                 </div>
                 <div class="card-footer">

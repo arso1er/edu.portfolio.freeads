@@ -18,7 +18,7 @@ class CreateAdsTable extends Migration
             $table->string('title', 255);
             $table->foreignId('category_id')->nullable();
             // $table->foreignId('category_id')->constrained();
-            $table->string('description', 1000);
+            $table->text('description');
             $table->string('picture', 255);
             $table->integer('price');
             $table->string('location', 255);

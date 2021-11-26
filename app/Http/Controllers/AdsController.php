@@ -151,7 +151,8 @@ class AdsController extends Controller
             'description' => 'required',
             'price' => 'required|integer|min:0',
             'location' => 'required',
-            'picture' => 'required|image|max:5048',
+            'picture' => 'required',
+            'picture.*' => 'image|max:2048',
             'category_id' => [
                 'required',
                 Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133
@@ -281,7 +282,8 @@ class AdsController extends Controller
                 'required',
                 Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133
             ],
-            'picture' => 'nullable|image|max:5048',
+            'picture' => 'nullable',
+            'picture.*' => 'image|max:2048'
         ]);
 
         $data = [
