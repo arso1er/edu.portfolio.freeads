@@ -18,7 +18,7 @@ class PagesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'], ['except' => ['index']]);
+        $this->middleware(['auth', 'verified'], ['except' => ['index', 'history']]);
     }
 
     public function index() {
@@ -29,6 +29,10 @@ class PagesController extends Controller
         return view('index', [
             'ads' => $ads
         ]);
+    }
+
+    public function history() {
+        return view('history');
     }
 
     public function users(Request $request) {

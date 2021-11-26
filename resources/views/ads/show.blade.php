@@ -36,6 +36,13 @@
 @endsection
 
 @section('content')
+    <div class="d-none" id="product-info"
+        data-id="{{ $ad->id }}"
+        data-name="{{ $ad->title }}"
+        data-price="{{ $ad->price }}"
+        data-picture="{{ explode('|', $ad->picture)[0] }}"
+    ></div>
+
     <div class="container my-5 align-items-center d-flex flex-column">
         <div class="baz-card col align-items-center d-flex flex-column">
             <div class="d-flex align-self-stretch mb-2 justify-content-between fw-bold">

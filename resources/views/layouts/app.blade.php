@@ -44,7 +44,7 @@
                             <a class="baz-nav-link" href="/ads">Browse ads</a>
                         </div>
                         <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link" href="history">My History</a>
+                            <a class="baz-nav-link" href="/history">My History</a>
                         </div>
                     </div>
                     <div class="baz-nav d-sm-flex align-items-center d-none">

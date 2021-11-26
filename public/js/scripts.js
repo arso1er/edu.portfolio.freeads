@@ -66,74 +66,65 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //   });
     // }
 
-    /* MOBILE MENU */
-    // const menuToggler = document.querySelector(".menu-toggler");
-    // const mobileMenu = document.querySelector(".nav-mobile");
-    // if (menuToggler && mobileMenu) {
-    //   menuToggler.addEventListener("click", (e) => {
-    //     mobileMenu.classList.toggle("open");
-    //   });
-    // }
-
     /* PRODUCT HISTORY */
-    // function addToLocalStorage(id, name, picture, price) {
-    //   const prevHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
-    //   if (!id || !name || !picture || !price) {
-    //     return;
-    //   }
-    //   let exists;
-    //   prevHistory.forEach((el) => {
-    //     if (el.id === id) exists = true;
-    //   });
-    //   if (!exists) {
-    //     prevHistory.push({
-    //       id,
-    //       name,
-    //       picture,
-    //       price,
-    //     });
-    //   }
-    //   if (prevHistory && prevHistory.length > 24) {
-    //     prevHistory.shift();
-    //   }
+    function addToLocalStorage(id, name, picture, price) {
+      const prevHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
+      if (!id || !name || !picture || !price) {
+        return;
+      }
+      let exists;
+      prevHistory.forEach((el) => {
+        if (el.id === id) exists = true;
+      });
+      if (!exists) {
+        prevHistory.push({
+          id,
+          name,
+          picture,
+          price,
+        });
+      }
+      if (prevHistory && prevHistory.length > 24) {
+        prevHistory.shift();
+      }
 
-    //   localStorage.setItem("prodHistory", JSON.stringify(prevHistory));
-    // }
-    // const prodEl = document.querySelector("#product-info");
-    // if (prodEl) {
-    //   const { id, name, picture, price } = prodEl.dataset;
-    //   addToLocalStorage(id, name, picture, price);
-    // }
+      localStorage.setItem("prodHistory", JSON.stringify(prevHistory));
+    }
+    const prodEl = document.querySelector("#product-info");
+    if (prodEl) {
+      const { id, name, picture, price } = prodEl.dataset;
+      addToLocalStorage(id, name, picture, price);
+    }
 
-    // const prodHist = document.querySelector("#product-history");
-    // if (prodHist) {
-    //   let outPut = "";
-    //   const myHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
-    //   if (myHistory && myHistory.length > 0) {
-    //     myHistory.reverse();
-    //     myHistory.forEach((el) => {
-    //       outPut += `
-    //         <a href="/product.php?id=${el.id}" class="product link-unstyled">
-    //             <div class="product-img">
-    //                 <img src="${el.picture}" alt="${el.name}">
-    //             </div>
-    //             <div class="product-body">
-    //                 <div class="product-body-left">
-    //                     <span class="title">${el.name}</span>
-    //                 </div>
-    //                 <div class="product-body-right">
-    //                     <span class="price">$${el.price}</span>
-    //                 </div>
-    //             </div>
-    //         </a>
-    //       `;
-    //     });
-    //   } else {
-    //     outPut += `
-    //       No product in your history.
-    //     `;
-    //   }
+    const prodHist = document.querySelector("#product-history");
+    if (prodHist) {
+      let outPut = "";
+      const myHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
+      if (myHistory && myHistory.length > 0) {
+        myHistory.reverse();
+        outPut += `<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">`;
+        myHistory.forEach((el) => {
+          outPut += `
+                    <div class="col">
+                        <a href="/ads/${el.id}" class="card h-100 baz-card-anim-container">
+                            <div class="baz-card-anim">
+                                <img src="${el.picture}" class="card-img-top" alt="${el.name}">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-truncate">${el.name}</h5>
+                                <div class="small text-muted fw-bold">$${el.price}</div>
+                            </div>
+                        </a>
+                    </div>
+          `;
+        });
+        outPut += `</div>`;
+      } else {
+        outPut += `
+            <div class="fs-4">Your history is currently empty.</div>
+        `;
+      }
 
-    //   prodHist.innerHTML = outPut;
-    // }
+      prodHist.insertAdjacentHTML('beforeend', outPut);
+    }
 });

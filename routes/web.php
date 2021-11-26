@@ -37,6 +37,8 @@ Route::put('/ads/{id}', [AdsController::class, 'update']);
 Route::delete('/ads/{id}', [AdsController::class, 'destroy']);
 Route::get('/user/my-ads', [AdsController::class, 'myAds']);
 
+Route::get('/history', [PagesController::class, 'history']);
+
 Route::get('/profile', [UsersController::class, 'profile']);
 Route::get('/user/{id}/edit', [UsersController::class, 'edit']);
 Route::put('/user/{id}', [UsersController::class, 'update']);
