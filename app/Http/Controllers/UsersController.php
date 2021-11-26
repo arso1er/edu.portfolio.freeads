@@ -35,7 +35,7 @@ class UsersController extends Controller
                              ->with('error','You are not allowed to do that!');
         }
 
-        $userToEdit = User::where('id', $id)->first();
+        $userToEdit = User::where('id', $id)->firstOrFail();
 
         return view('user/edit', [
             'user' => $userToEdit

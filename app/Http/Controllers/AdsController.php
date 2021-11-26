@@ -203,7 +203,7 @@ class AdsController extends Controller
         // dd($ad);
 
         if(!isset($ad)) {
-            return abort(404);   // https://stackoverflow.com/a/32922364
+            return abort(404);   // https://stackoverflow.com/a/32922364   Could have used firstOrFail instead like below.
         }
 
         // share urls
@@ -242,8 +242,8 @@ class AdsController extends Controller
     public function edit($id)
     {
         // dd($id);
-        // $ad = Ad::find($id)->first();  // DON'T USE THIS. FOR WHATEVER REASON IT RETURNS 1ST AD ALWAYS.
-        $ad = Ad::where('id', $id)->first();
+        // $ad = Ad::find($id)->firstOrFail();  // DON'T USE THIS. FOR WHATEVER REASON IT RETURNS 1ST AD ALWAYS.
+        $ad = Ad::where('id', $id)->firstOrFail();
         if(Auth::user()->id !== $ad->user_id && Auth::user()->role !== 'admin') {
             return redirect()->route('root')
                              ->with('error','You are not allowed to do that!');
@@ -266,7 +266,7 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ad = Ad::where('id', $id)->first();
+        $ad = Ad::where('id', $id)->firstOrFail();
         if(Auth::user()->id !== $ad->user_id && Auth::user()->role !== 'admin') {
             return redirect()->route('root')
                              ->with('error','You are not allowed to do that!');
@@ -332,7 +332,7 @@ class AdsController extends Controller
      */
     public function destroy($id)
     {
-        $ad = Ad::where('id', $id)->first();
+        $ad = Ad::where('id', $id)->firstOrFail();
         if(Auth::user()->id !== $ad->user_id && Auth::user()->role !== 'admin') {
             return redirect()->route('root')
                              ->with('error','You are not allowed to do that!');
