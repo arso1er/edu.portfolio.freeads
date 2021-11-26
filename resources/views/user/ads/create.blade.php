@@ -48,7 +48,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="picture" class="form-label">Picture</label>
-                            <input required class="form-control @error('picture') is-invalid @enderror" type="file" id="picture" name="picture">
+                            <input required class="form-control @error('picture') is-invalid @enderror" type="file" multiple accept="image/*" id="picture" name="picture[]">
                             @error('picture')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -60,7 +60,7 @@
                             <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" value="{{ old('category_id') }}">
                                 <option selected disabled value="">Choose one</option>
                                 @foreach ($cats as $cat)
-                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                    <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                                 @endforeach
                             </select>
                             @error('category_id')

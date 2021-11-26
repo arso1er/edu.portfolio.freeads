@@ -11,7 +11,7 @@
                     <div class="col">
                         <div class="card h-100 baz-card-anim-container">
                             <div class="baz-card-anim">
-                                <img src="{{ $ad->picture }}" class="card-img-top" alt="{{ $ad->title }}">
+                                <img src="{{ explode('|', $ad->picture)[0] }}" class="card-img-top" alt="{{ $ad->title }}">
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-truncate">{{ $ad->title }}</h5>

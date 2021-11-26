@@ -151,17 +151,28 @@ class AdsController extends Controller
             'description' => 'required',
             'price' => 'required|integer|min:0',
             'location' => 'required',
-            'picture' => 'required|mimes:png,jpg,jpeg|max:5048',
+            'picture' => 'required',
+            'picture.*' => 'mimes:png,jpg,jpeg|max:5048',
             'category_id' => [
                 'required',
                 Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133
             ],
         ]);
 
-        // $request->file('picture')->
-        $newPicName = 'Ad-' . time() . "." . $request->file('picture')->extension();
-        $request->file('picture')->move(public_path('images/ads'), $newPicName);
-        // dd($newPicName);
+        $images = [];
+        if($request->hasfile('picture')) {
+            if(count($request->file('picture')) > 4) {
+                return back()
+                        ->withInput()
+                        ->withErrors(['picture' => 'An ad can have at most 4 images.']);
+            }
+            foreach($request->file('picture') as $key=>$file) {
+                $newPicName = 'ad-' . time() . "-$key." . $file->extension();
+                $file->move(public_path('images/ads'), $newPicName);
+                $imageUrl = "/images/ads/$newPicName";
+                $images[] = $imageUrl;
+            }
+        }
 
         $id = Auth::user()->id;
 
@@ -171,7 +182,7 @@ class AdsController extends Controller
             'price' => $request->input('price'),
             'location' => $request->input('location'),
             'category_id' => $request->input('category_id'),
-            'picture' => "/images/ads/$newPicName",
+            'picture' => implode('|', $images),
             'user_id' => $id
         ]);
 
@@ -283,10 +294,25 @@ class AdsController extends Controller
             // 'user_id' => $id // Comment this out to leave user_id untouched
         ];
 
-        if($request->file('picture')) {
-            $newPicName = 'Ad-' . time() . "." . $request->file('picture')->extension();
-            $request->file('picture')->move(public_path('images/ads'), $newPicName);
-            $pictureArray = ['picture' => "/images/ads/$newPicName"];
+        // if($request->file('picture')) {
+        //     $newPicName = 'Ad-' . time() . "." . $request->file('picture')->extension();
+        //     $request->file('picture')->move(public_path('images/ads'), $newPicName);
+        //     $pictureArray = ['picture' => "/images/ads/$newPicName"];
+        // }
+        if($request->hasfile('picture')) {
+            $images = [];
+            if(count($request->file('picture')) > 4) {
+                return back()
+                        ->withInput()
+                        ->withErrors(['picture' => 'An ad can have at most 4 images.']);
+            }
+            foreach($request->file('picture') as $key=>$file) {
+                $newPicName = 'ad-' . time() . "-$key." . $file->extension();
+                $file->move(public_path('images/ads'), $newPicName);
+                $imageUrl = "/images/ads/$newPicName";
+                $images[] = $imageUrl;
+            }
+            $pictureArray = ['picture' => implode('|', $images)];
         }
         
         $newAd = Ad::where('id', $id)
