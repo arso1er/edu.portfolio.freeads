@@ -76,11 +76,16 @@ class UsersController extends Controller
             $passArray = ['password' => Hash::make( $request->input('password') )];
         }
 
+        if($currentUser->role === "admin") {
+            $roleArray = ['role' => $request->input('role')];
+        }
+
         $newUser = User::where('id', $id)
                     ->update(array_merge(
                         $data,
                         $pictureArray ?? [],
-                        $passArray ?? []
+                        $passArray ?? [],
+                        $roleArray ?? [],
                     ));
 
         return back()->with('success','User successfully updated!');

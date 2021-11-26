@@ -102,6 +102,23 @@
                             </div>
                         </div>
 
+                        @if (Auth::user()->role === "admin")                    
+                            <div class="mb-3 row">
+                                <label class="col-md-4 col-form-label text-end" for="role">Role</label>
+                                <div class="col-md-6">
+                                    <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" value="{{ $user->role }}">
+                                        <option value="user" {{ $user->role === "user" ? 'selected' : '' }}>User</option>
+                                        <option value="admin" {{ $user->role === "admin" ? 'selected' : '' }}>Admin</option>
+                                    </select>
+                                    @error('role')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="mb-3 row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
