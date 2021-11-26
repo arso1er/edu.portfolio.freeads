@@ -35,6 +35,11 @@
                     </div>
                 @endforeach
             </div>
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                   {!! $pageLinks !!}
+                </ul>
+            </nav>
         @endif
         
     </div>

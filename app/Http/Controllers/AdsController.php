@@ -89,7 +89,7 @@ class AdsController extends Controller
         function getLink($num, $title, $category, $sort, $min_price, $max_price, $perPage) {
             return "/ads?title=$title&category=$category&sort=$sort&min_price=$min_price&max_price=$max_price&page=$num&per_page=$perPage";
         }
-        if($page !== 1) {
+        if((int)$page !== 1) {
             // <li class='page-item'><a href='' class='page-link'>Previous</a></li>
             $links .= "<li class='page-item'><a href='".getLink($prevLink, $title, $category, $sort, $min_price, $max_price, $perPage)."' class='page-link'>Previous</a></li>";
         }
@@ -345,11 +345,44 @@ class AdsController extends Controller
     /**
      * Show logged in user's ads
      */
-    public function myAds() {
-        $ads = Ad::where('user_id', Auth::user()->id)->get();
+    public function myAds(Request $request) {
+        // $ads = Ad::where('user_id', Auth::user()->id)->get();
+        $count = Ad::where('user_id', Auth::user()->id)->count();
+        $perPage = $request->query('per_page', '20');
+        $page = $request->query('page', 1);
+        $startAt = $perPage * ($page - 1);
+        $totalPages = ceil($count / $perPage);
+
+        // Generate pagination
+        $links = "";
+        $prevLink = $page - 1;
+        function getLink($num, $perPage) {
+            return "/user/my-ads?page=$num&per_page=$perPage";
+        }
+        if((int)$page !== 1) {
+            $links .= "<li class='page-item'><a href='".getLink($prevLink, $perPage)."' class='page-link'>Previous</a></li>";
+        }
+        for ($i = 1; $i <= $totalPages; $i++) {
+            if($i === (int)$page - 1) {
+                $links .= "<li class='page-item'><a href='".getLink($i, $perPage)."' class='page-link'>$i</a></li>";
+            }
+            if($i === (int)$page) {
+                $links .= "<li class='page-item active' aria-current='page'><span class='page-link'>$i</span></li>";
+            }
+            if($i === (int)$page + 1) {
+                $links .= "<li class='page-item'><a href='".getLink($i, $perPage)."' class='page-link'>$i</a></li>";
+            }
+        }
+        $nextLink = $page + 1;
+        if($page + 1 <= $totalPages) {
+            $links .= "<li class='page-item'><a href='".getLink($nextLink, $perPage)."' class='page-link'>Next</a></li>";
+        }
+        
+        $ads = Ad::where('user_id', Auth::user()->id)->skip($startAt)->take($perPage)->get();
 
         return view('user/ads/my-ads', [
-            'ads' => $ads
+            'ads' => $ads,
+            'pageLinks' => $links,
         ]);
     }
 }
