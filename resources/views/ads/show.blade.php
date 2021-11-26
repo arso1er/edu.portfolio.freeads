@@ -51,7 +51,7 @@
             </div>
             <div class="card h-100">
                 <div class="card-img-top w-100">
-                    <div id="showAdCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="showAdCarousel" class="{{ count(explode('|', $ad->picture)) > 1 ? 'carousel slide' : '' }}" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach (explode('|', $ad->picture) as $picture)
                                 {{-- https://www.codegrepper.com/code-examples/php/laravel+blade+%40foreach+check+if+first+iteration --}}
