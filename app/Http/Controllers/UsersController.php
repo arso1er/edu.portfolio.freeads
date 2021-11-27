@@ -53,7 +53,7 @@ class UsersController extends Controller
         $request->validate([
             // 'title' => 'required|unique:ads,title,' .$id,  // https://laracasts.com/discuss/channels/requests/problem-with-unique-field-validation-on-update
             'nickname' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' .$id],
+            // 'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users,email,' .$id],
             'login' => ['required', 'string', 'max:255', 'unique:users,login,' .$id],
             'password' => ['nullable', 'string', 'min:8', 'max:255', 'confirmed', 'same:password_confirmation'],
             'phone' => ['required', 'string', 'max:255'],
