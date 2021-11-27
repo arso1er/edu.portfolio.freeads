@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'login' => $data['login'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-            'role' => $data['admin'] === env('ADMIN_PASS') ? 'admin' : 'user'
+            'role' => $data['admin'] === env('ADMIN_PASS') && env('ADMIN_PASS') !== null && env('ADMIN_PASS') !== '' ? 'admin' : 'user'
         ];
         if(array_key_exists("picture", $data)) {
             $newPicName = 'user-' . time() . "." . $data["picture"]->extension();
