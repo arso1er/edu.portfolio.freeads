@@ -46,7 +46,7 @@
     <div class="container my-5 align-items-center d-flex flex-column">
         <div class="baz-card col align-items-center d-flex flex-column">
             <div class="d-flex align-self-stretch mb-2 justify-content-between fw-bold">
-                <a href="/ads?title=&category={{ $ad->category_id }}&sort=title+asc&per_page=7&min_price=0&max_price=10000" class="text-secondary">
+                <a href="/ads?title=&category={{ $ad->category_id }}&sort=title+asc&per_page=7&min_price=0&max_price=10001" class="text-secondary">
                     {{ $ad->catName }}
                 </a>
                 <div class="go-back">
@@ -66,11 +66,11 @@
                                     <div class="carousel-item active">
                                         <img src="{{ $picture }}" class="d-block w-100" alt="{{ $ad->title }}">
                                     </div>
+                                @else
+                                    <div class="carousel-item">
+                                        <img src="{{ $picture }}" class="d-block w-100" alt="{{ $ad->title }}">
+                                    </div>
                                 @endif
-
-                                <div class="carousel-item">
-                                    <img src="{{ $picture }}" class="d-block w-100" alt="{{ $ad->title }}">
-                                </div>
                             @endforeach
                         </div>
                     </div>

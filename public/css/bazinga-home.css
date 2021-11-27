@@ -458,3 +458,7 @@ Show Product
         margin-right: 0;
     }
 } */
+
+#reset-price-range {
+    cursor: pointer;
+}

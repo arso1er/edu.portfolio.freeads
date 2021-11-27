@@ -47,7 +47,7 @@ class AdsController extends Controller
         // Get params
         $title = $request->query('title', '') ?? '';
         $min_price = $request->query('min_price', '0') ?? '0';
-        $max_price = $request->query('max_price', '10000') ?? '10000';
+        $max_price = $request->query('max_price', '10001') ?? '10001';
         $sort = $request->query('sort', 'title asc') ?? 'title asc';
         $category = $request->query('category', '-1') ?? -1;
 
@@ -57,13 +57,14 @@ class AdsController extends Controller
 
         $cat_ids_sql = implode(',', $cat_ids);
         $cats_str = (int)$cat_ids[0] < 1 ? "" : "AND category_id IN ($cat_ids_sql)";
+        $price_str = (int)$max_price > 10000 ? "AND price >= $min_price" : "AND price BETWEEN $min_price AND $max_price";
 
         // Count query
         $countStdClass = DB::select(DB::raw("
             SELECT COUNT(*) as total FROM ads
             WHERE title LIKE \"%$title%\"
             $cats_str
-            AND price BETWEEN $min_price AND $max_price
+            $price_str
             ORDER BY $sort
         "));
         $count = (array) $countStdClass[0];
@@ -78,7 +79,7 @@ class AdsController extends Controller
             SELECT * FROM ads
             WHERE title LIKE \"%$title%\"
             $cats_str
-            AND price BETWEEN $min_price AND $max_price
+            $price_str
             ORDER BY $sort
             LIMIT $startAt, $perPage
         "));

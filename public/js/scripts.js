@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 children[9].style.left = value + "%";
                 children[13].style.left = value + "%";
                 children[13].childNodes[1].innerHTML = this.value;
-                document.querySelector("#price-right").innerHTML = this.value;
+                document.querySelector("#price-right").innerHTML =
+                    this.value > 10000 ? "10000+" : this.value;
             });
 
         // Trigger event on load
@@ -43,12 +44,31 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
+    // Reset price range
+    const priceReset = document.querySelector("#reset-price-range");
+    if (priceReset) {
+        priceReset.addEventListener("click", () => {
+            // Select inputs
+            minPrice = document.querySelector("input[name=min_price]");
+            maxPrice = document.querySelector("input[name=max_price]");
+
+            // Reset inputs' values
+            minPrice.value = 0;
+            maxPrice.value = 10001;
+
+            // Trigger event to update UI
+            [minPrice, maxPrice].forEach((input) => {
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+            });
+        });
+    }
+
     /* Go back */
     const backBtn = document.querySelector(".go-back");
     if (backBtn) {
-      backBtn.addEventListener("click", () => {
-        history.back();
-      });
+        backBtn.addEventListener("click", () => {
+            history.back();
+        });
     }
 
     /* NOTIF */
@@ -68,43 +88,44 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /* PRODUCT HISTORY */
     function addToLocalStorage(id, name, picture, price) {
-      const prevHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
-      if (!id || !name || !picture || !price) {
-        return;
-      }
-      let exists;
-      prevHistory.forEach((el) => {
-        if (el.id === id) exists = true;
-      });
-      if (!exists) {
-        prevHistory.push({
-          id,
-          name,
-          picture,
-          price,
+        const prevHistory =
+            JSON.parse(localStorage.getItem("prodHistory")) || [];
+        if (!id || !name || !picture || !price) {
+            return;
+        }
+        let exists;
+        prevHistory.forEach((el) => {
+            if (el.id === id) exists = true;
         });
-      }
-      if (prevHistory && prevHistory.length > 24) {
-        prevHistory.shift();
-      }
+        if (!exists) {
+            prevHistory.push({
+                id,
+                name,
+                picture,
+                price,
+            });
+        }
+        if (prevHistory && prevHistory.length > 24) {
+            prevHistory.shift();
+        }
 
-      localStorage.setItem("prodHistory", JSON.stringify(prevHistory));
+        localStorage.setItem("prodHistory", JSON.stringify(prevHistory));
     }
     const prodEl = document.querySelector("#product-info");
     if (prodEl) {
-      const { id, name, picture, price } = prodEl.dataset;
-      addToLocalStorage(id, name, picture, price);
+        const { id, name, picture, price } = prodEl.dataset;
+        addToLocalStorage(id, name, picture, price);
     }
 
     const prodHist = document.querySelector("#product-history");
     if (prodHist) {
-      let outPut = "";
-      const myHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
-      if (myHistory && myHistory.length > 0) {
-        myHistory.reverse();
-        outPut += `<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">`;
-        myHistory.forEach((el) => {
-          outPut += `
+        let outPut = "";
+        const myHistory = JSON.parse(localStorage.getItem("prodHistory")) || [];
+        if (myHistory && myHistory.length > 0) {
+            myHistory.reverse();
+            outPut += `<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">`;
+            myHistory.forEach((el) => {
+                outPut += `
                     <div class="col">
                         <a href="/ads/${el.id}" class="card h-100 baz-card-anim-container">
                             <div class="baz-card-anim">
@@ -117,14 +138,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         </a>
                     </div>
           `;
-        });
-        outPut += `</div>`;
-      } else {
-        outPut += `
+            });
+            outPut += `</div>`;
+        } else {
+            outPut += `
             <div class="fs-4">Your history is currently empty.</div>
         `;
-      }
+        }
 
-      prodHist.insertAdjacentHTML('beforeend', outPut);
+        prodHist.insertAdjacentHTML("beforeend", outPut);
     }
 });

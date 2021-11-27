@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="price-range">
-                            <span>Price Range</span>
+                            <span id="reset-price-range">Price Range</span>
                             <div class="slider" id="slider-distance">
                                 <div>
                                     <div class="inverse-left"></div>
@@ -58,19 +58,19 @@
                                         <span>0</span>
                                     </div>
                                     <div class="sign second">
-                                        <span>10000</span>
+                                        <span>10000+</span>
                                     </div>
                                 </div>
-                                <input name="min_price" type="range" value="{{ $min_price }}" max="10000" min="0" step="1" />
+                                <input name="min_price" type="range" value="{{ $min_price }}" max="10001" min="0" step="1" />
                             
-                                <input name="max_price" type="range" value="{{ $max_price }}" max="10000" min="0" step="1" />
+                                <input name="max_price" type="range" value="{{ $max_price }}" max="10001" min="0" step="1" />
                             </div>
                             <div class="prices">
                                 <span>$
                                     <span id="price-left">0</span>
                                 </span>
                                 <span>$
-                                    <span id="price-right">10000</span>
+                                    <span id="price-right">10000+</span>
                                 </span>
                             </div>
                         </div>

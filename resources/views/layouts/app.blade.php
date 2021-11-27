@@ -157,7 +157,7 @@
             @yield('content')
 
             <footer class="border-top container py-5 text-center">
-                &copy; 2021 Bazinga, Inc. All rights reserved.
+                &copy; {{ date("Y") }} Bazinga, Inc. All rights reserved.
             </footer>
         </div>
 
