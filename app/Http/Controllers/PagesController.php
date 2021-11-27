@@ -145,7 +145,7 @@ class PagesController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|unique:cats',
+            'name' => 'required|max:255|unique:cats',
             'parent_id' => [
                 'nullable',
                 Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133

@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'nickname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'login' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
             'phone' => ['required', new PhoneNumber],
             'picture' => ['nullable', 'image'],
             'admin' => 'nullable|in:'.env('ADMIN_PASS'),

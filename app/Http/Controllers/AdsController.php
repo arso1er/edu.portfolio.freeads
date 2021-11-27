@@ -147,10 +147,10 @@ class AdsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|unique:ads',
+            'title' => 'required|max:255|unique:ads',
             'description' => 'required',
             'price' => 'required|integer|min:0',
-            'location' => 'required',
+            'location' => 'required|max:255',
             'picture' => 'required',
             'picture.*' => 'image|max:2048',
             'category_id' => [
@@ -274,10 +274,10 @@ class AdsController extends Controller
         }
 
         $request->validate([
-            'title' => 'required|unique:ads,title,' .$id,  // https://laracasts.com/discuss/channels/requests/problem-with-unique-field-validation-on-update
+            'title' => 'required|max:255|unique:ads,title,' .$id,  // https://laracasts.com/discuss/channels/requests/problem-with-unique-field-validation-on-update
             'description' => 'required',
             'price' => 'required|integer|min:0',
-            'location' => 'required',
+            'location' => 'required|max:255',
             'category_id' => [
                 'required',
                 Rule::exists('cats', 'id')   // https://stackoverflow.com/a/44574133

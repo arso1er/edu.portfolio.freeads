@@ -55,7 +55,7 @@ class UsersController extends Controller
             'nickname' => ['required', 'string', 'max:255'],
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' .$id],
             'login' => ['required', 'string', 'max:255', 'unique:users,login,' .$id],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed', 'same:password_confirmation'],
+            'password' => ['nullable', 'string', 'min:8', 'max:255', 'confirmed', 'same:password_confirmation'],
             'phone' => ['required', 'string', 'max:255'],
             'picture' => ['nullable', 'image']
         ]);
