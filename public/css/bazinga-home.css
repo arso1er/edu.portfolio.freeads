@@ -246,7 +246,9 @@ div.slider>input[type="range"]:focus {
     outline: none;
 }
 
-div.slider>input[type="range"]::-webkit-slider-thumb {
+/* https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1   Firefox fix
+https://stackoverflow.com/a/58725459 */
+div.slider>input[type="range"]::-webkit-slider-thumb, div.slider>input[type="range"]::-moz-range-thumb {
     pointer-events: all;
     width: 28px;
     height: 28px;
