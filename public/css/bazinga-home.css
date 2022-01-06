@@ -248,7 +248,18 @@ div.slider>input[type="range"]:focus {
 
 /* https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1   Firefox fix
 https://stackoverflow.com/a/58725459 */
-div.slider>input[type="range"]::-webkit-slider-thumb, div.slider>input[type="range"]::-moz-range-thumb {
+div.slider>input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 28px;
+    height: 28px;
+    border-radius: 0px;
+    border: 0 none;
+    background: red;
+    -webkit-appearance: none;
+}
+
+/*FOR WHATEVER reason, putting div.slider>input[type="range"]::-webkit-slider-thumb and div.slider>input[type="range"]::-moz-range-thumb disabled range on chrome, so I had to duplicate the styles*/
+div.slider>input[type="range"]::-moz-range-thumb {
     pointer-events: all;
     width: 28px;
     height: 28px;
@@ -385,6 +396,7 @@ Show Product
 .baz-card {
     max-width: 600px;
 }
+
 .go-back {
     display: flex;
     align-items: center;
