@@ -210,13 +210,13 @@ class AdsController extends Controller
 
         // share urls
         $productName = $ad->title;
-        $rootUrl = "https://4d31-156-0-214-62.ngrok.io";
+        $rootUrl = "https://freeads.jeffvodo.me";
         $bareUrl = "$rootUrl/ads/$id";
         $urlToShare = rawurlencode($bareUrl);
         $urlText = rawurlencode("Check out $productName");
-        $hashtags = "Bazinga,ads,onlineads,freeads";
+        $hashtags = "ads,onlineads,freeads";
         $emailSubject = rawurlencode(
-            "I ♥ this ad on Bazinga!"
+            "I ♥ this ad on FreeAds!"
         );
         $emailBody = rawurlencode(
             "$productName. Here's the link $bareUrl."

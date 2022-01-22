@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="BazingaAds, the #1 free ads platform in the world.">
+    <meta name="description" content="FreeAds, the #1 free ads platform in the world.">
     <link rel="icon" type="image/png" href="/favicon.png"/>
 
     @yield('meta')
@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'BazingaAds | Ultimate free ads') }}</title>
+    <title>{{ config('app.name', 'FreeAds | Ultimate free ads') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -34,7 +34,7 @@
             <nav class="navbar navbar-light bg-light sticky-top">
                 <div class="container">
                     <a class="fw-bold navbar-brand text-primary text-uppercase" href="/">
-                        Bazinga<span class="text-danger">Ads</span>
+                        Free<span class="text-danger">Ads</span>
                     </a>
                     <div class="baz-nav d-sm-flex align-items-center d-none">
                         <div class="baz-nav-item p-4">
@@ -98,7 +98,7 @@
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title text-primary fw-bold text-uppercase" id="offcanvasNavbarLabel">
-                                Bazinga<span class="text-danger">Ads</span>
+                                Free<span class="text-danger">Ads</span>
                             </h5>
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
@@ -157,7 +157,7 @@
             @yield('content')
 
             <footer class="border-top container py-5 text-center">
-                &copy; {{ date("Y") }} Bazinga, Inc. All rights reserved.
+                &copy; {{ date("Y") }} FreeAds, Inc. All rights reserved.
             </footer>
         </div>
 

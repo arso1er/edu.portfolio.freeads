@@ -7,9 +7,9 @@
             <div class="row py-5">
                 <div class="col-12 col-sm-6 baz-home-header order-md-2"></div>
                 <div class="col-12 col-sm-6 mt-4 mt-md-0 d-flex flex-column">
-                    <div class="text-danger text-uppercase fw-bold">Welcome to Bazinga Ads.</div>
+                    <div class="text-danger text-uppercase fw-bold">Welcome to FreeAds.</div>
                     <div class="fs-2 lh-sm mb-3 mt-3">We are the number one growing free ads platform.</div>
-                    <div class="fs-4 mb-3">We offer unlimited free ads to anyone and everyone. You won't find better anywhere else. Over ten thousands people put their trust in Bazinga Ads since its creation, and we'll be happy to have you among us. All you have to do is create an account and join the fun!</div>
+                    <div class="fs-4 mb-3">We offer unlimited free ads to anyone and everyone. You won't find better anywhere else. Over ten thousands people put their trust in FreeAds since its creation, and we'll be happy to have you among us. All you have to do is create an account and join the fun!</div>
                     <form action="/ads" class="col-md-8 mt-auto">
                         <div class="input-group">
                             <input name="title" type="text" class="form-control bg-light" placeholder="Search ads" aria-label="Search ads" aria-describedby="home-search">

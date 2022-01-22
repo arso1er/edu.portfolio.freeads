@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title> {{ $ad->title }} | BazingaAds </title>
+    <title> {{ $ad->title }} | FreeAds </title>
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="{{ $ad->title }}" />
@@ -16,7 +16,7 @@
     <meta property="og:type" content="website" />
     <meta
         property="og:site_name"
-        content="Bazinga"
+        content="FreeAds"
     />
     <meta property="og:title" content="{{ $ad->title }}" />
     <meta name="description" content="{{ $ad->description }}" />
