@@ -168,9 +168,9 @@ class AdsController extends Controller
                         ->withErrors(['picture' => 'An ad can have at most 4 images.']);
             }
             foreach($request->file('picture') as $key=>$file) {
-                $newPicName = 'ad-' . time() . "-$key." . $file->extension();
-                $file->move(public_path('images/ads'), $newPicName);
-                $imageUrl = "/images/ads/$newPicName";
+                $newPicName = 'prod-' . time() . "-$key." . $file->extension();
+                $file->move(public_path('images/prods'), $newPicName);
+                $imageUrl = "/images/prods/$newPicName";
                 $images[] = $imageUrl;
             }
         }
@@ -310,9 +310,9 @@ class AdsController extends Controller
                         ->withErrors(['picture' => 'An ad can have at most 4 images.']);
             }
             foreach($request->file('picture') as $key=>$file) {
-                $newPicName = 'ad-' . time() . "-$key." . $file->extension();
-                $file->move(public_path('images/ads'), $newPicName);
-                $imageUrl = "/images/ads/$newPicName";
+                $newPicName = 'prod-' . time() . "-$key." . $file->extension();
+                $file->move(public_path('images/prods'), $newPicName);
+                $imageUrl = "/images/prods/$newPicName";
                 $images[] = $imageUrl;
             }
             $pictureArray = ['picture' => implode('|', $images)];
