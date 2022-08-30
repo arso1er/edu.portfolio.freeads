@@ -37,33 +37,27 @@
                         Free<span class="text-danger">Ads</span>
                     </a>
                     <div class="baz-nav d-sm-flex align-items-center d-none">
-                        <div class="baz-nav-item p-4">
+                        <div class="baz-nav-item px-4 py-1">
                             <a class="baz-nav-link" aria-current="page" href="/">Home</a>
                         </div>
-                        <div class="baz-nav-item p-4">
+                        <div class="baz-nav-item px-4 py-1">
                             <a class="baz-nav-link" href="/ads">Browse ads</a>
                         </div>
-                        <div class="baz-nav-item p-4">
+                        <div class="baz-nav-item px-4 py-1">
                             <a class="baz-nav-link" href="/history">My History</a>
                         </div>
                     </div>
                     <div class="baz-nav d-sm-flex align-items-center d-none">
-                        {{-- <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link" aria-current="page" href="#">Home</a>
-                        </div>
-                        <div class="baz-nav-item p-4">
-                            <a class="baz-nav-link" href="#">Features</a>
-                        </div> --}}
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('register'))
-                                <div class="baz-nav-item p-4">
+                                <div class="baz-nav-item px-4 py-1">
                                     <a href="{{ route('register') }}" class="baz-nav-link btn btn-outline-primary fw-bold">{{ __('Register') }}</a>
                                 </div>
                             @endif
 
                             @if (Route::has('login'))
-                                <div class="baz-nav-item py-4">
+                                <div class="baz-nav-item py-1">
                                     <a href="{{ route('login') }}" class="baz-nav-link btn btn-primary fw-bold">{{ __('Login') }}</a>
                                 </div>
                             @endif
